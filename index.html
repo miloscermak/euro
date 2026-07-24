@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navrhni si vlastní stoeurovku</title>
+<meta name="description" content="Vtipná aplikace: nahraj fotku a vyrob si vlastní eurobankovku. Zdarma, přímo v prohlížeči.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>💶 Navrhni si vlastní stoeurovku</h1>
+  <p class="tagline">Nahraj fotku (nebo vyber emoji) a Evropská centrální banka legrace ti vytiskne bankovku.</p>
+</header>
+
+<main>
+  <div class="note-wrap">
+    <canvas id="note" width="1740" height="945"></canvas>
+    <!-- Nápověda přes canvas – zmizí po nahrání fotky, do staženého PNG se nedostane -->
+    <div id="hint" class="hint" hidden>Sem přetáhni fotku</div>
+  </div>
+
+  <section class="controls">
+    <div class="control-group">
+      <label class="upload-btn" for="file">📷 Nahrát fotku</label>
+      <input type="file" id="file" accept="image/*" hidden>
+      <div class="emoji-row" id="emojiRow">
+        <button data-emoji="🍺">🍺</button>
+        <button data-emoji="🥐">🥐</button>
+        <button data-emoji="🐕">🐕</button>
+        <button data-emoji="🐈">🐈</button>
+        <button data-emoji="😂">😂</button>
+        <button data-emoji="🍕">🍕</button>
+        <button data-emoji="⚽">⚽</button>
+        <button data-emoji="🚗">🚗</button>
+        <button data-emoji="🧻">🧻</button>
+        <button data-emoji="❤️">❤️</button>
+      </div>
+    </div>
+
+    <div class="control-group sliders">
+      <label>Přiblížení
+        <input type="range" id="zoom" min="0.5" max="3" step="0.01" value="1">
+      </label>
+      <p class="tip">Tip: fotku můžeš myší/prstem posouvat přímo na bankovce.</p>
+    </div>
+
+    <div class="control-group fields">
+      <label>Hodnota
+        <input type="text" id="denom" value="100" maxlength="7">
+      </label>
+      <label>Nápis
+        <input type="text" id="label" value="EURO" maxlength="10">
+      </label>
+      <label>Podpis
+        <input type="text" id="signature" value="Mario Draghi" maxlength="24">
+      </label>
+    </div>
+
+    <div class="control-group actions">
+      <button id="download" class="primary">⬇️ Stáhnout bankovku</button>
+      <button id="share">📤 Sdílet</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Není zákonné platidlo. Je to legrace. Nekupujte za to rohlíky.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

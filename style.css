@@ -1,0 +1,151 @@
+/* Vlastní stoeurovka – jednoduchý tmavý layout, ať bankovka vynikne */
+
+:root {
+  --bg: #14231c;
+  --card: #1d3329;
+  --accent: #4caf6d;
+  --accent-dark: #35854f;
+  --text: #eef5ee;
+  --muted: #9fb8a6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: radial-gradient(circle at 50% 0%, #1e3527, var(--bg) 70%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+header { text-align: center; margin-bottom: 20px; }
+h1 { margin: 0 0 8px; font-size: clamp(1.4rem, 4vw, 2.2rem); }
+.tagline { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+main {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.note-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+#note {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: grab;
+  touch-action: none; /* posouvání fotky prstem místo scrollu stránky */
+}
+#note:active { cursor: grabbing; }
+
+.hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: rgba(0,0,0,0.55);
+  background: rgba(255,255,255,0.25);
+  pointer-events: none;
+}
+
+.controls {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.control-group { display: flex; flex-direction: column; gap: 10px; }
+
+.upload-btn {
+  display: inline-block;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.upload-btn:hover { background: var(--accent-dark); }
+
+.emoji-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.emoji-row button {
+  font-size: 1.4rem;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.emoji-row button:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
+
+.sliders label, .fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+
+.tip { margin: 0; font-size: 0.78rem; color: var(--muted); }
+
+.fields { gap: 12px; }
+.fields input {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--text);
+  font-size: 1rem;
+}
+.fields input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+.actions { justify-content: flex-end; }
+.actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+  transition: background 0.15s;
+}
+.actions button:hover { background: rgba(255,255,255,0.2); }
+.actions button.primary { background: var(--accent); color: #fff; }
+.actions button.primary:hover { background: var(--accent-dark); }
+
+footer {
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .controls { grid-template-columns: 1fr; }
+}
