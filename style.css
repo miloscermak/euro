@@ -51,6 +51,8 @@ main {
 }
 #note:active { cursor: grabbing; }
 
+.hint[hidden] { display: none; }
+
 .hint {
   position: absolute;
   inset: 0;
