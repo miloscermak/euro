@@ -26,13 +26,11 @@ python3 -m http.server 8123
 
 a otevřít http://localhost:8123.
 
-## Nasazení na Netlify
+## Nasazení
 
-Web je čistě statický – žádný build. Stačí propojit repozitář s Netlify
-a jako publish directory nechat kořen projektu (`.`), viz `netlify.toml`.
-
-Po nasazení uprav v `index.html` doménu v meta tazích `og:image` a `og:url`
-podle skutečné adresy webu.
+Běží na Netlify na adrese **https://euro.inspiruj.se**. Web je čistě
+statický – žádný build, publish directory je kořen projektu (`.`),
+viz `netlify.toml`. Každý push do větve `main` se nasadí automaticky.
 
 ## Struktura
 
