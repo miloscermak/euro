@@ -13,6 +13,60 @@ const canvas = document.getElementById('note');
 const ctx = canvas.getContext('2d');
 const hint = document.getElementById('hint');
 
+// ---- Překlady ----
+const I18N = {
+  cs: {
+    title: '💶 Navrhni si vlastní stoeurovku',
+    tagline: 'Nahraj fotku (nebo vyber emoji) a Evropská centrální banka to (třeba) vezme na vědomí!',
+    hint: 'Sem přetáhni fotku',
+    upload: '📷 Nahrát fotku',
+    zoom: 'Přiblížení',
+    tip: 'Tip: fotku můžeš myší/prstem posouvat přímo na bankovce.',
+    denom: 'Hodnota',
+    label: 'Nápis',
+    signature: 'Podpis',
+    download: '⬇️ Stáhnout bankovku',
+    share: '📤 Sdílet',
+    footer: 'Není zákonné platidlo. Je to legrace. Nekupujte za to rohlíky.',
+    specimen: 'SPECIMEN · JEN PRO LEGRACI · NENÍ ZÁKONNÉ PLATIDLO',
+    shareTitle: 'Moje vlastní stoeurovka',
+    pageTitle: 'Navrhni si vlastní stoeurovku',
+  },
+  en: {
+    title: '💶 Design your own €100 note',
+    tagline: 'Upload a photo (or pick an emoji) and the European Central Bank will (maybe) take note!',
+    hint: 'Drop your photo here',
+    upload: '📷 Upload photo',
+    zoom: 'Zoom',
+    tip: 'Tip: drag the photo around right on the banknote.',
+    denom: 'Value',
+    label: 'Caption',
+    signature: 'Signature',
+    download: '⬇️ Download banknote',
+    share: '📤 Share',
+    footer: "Not legal tender. It's a joke. Don't try to buy bread rolls with it.",
+    specimen: 'SPECIMEN · JUST FOR FUN · NOT LEGAL TENDER',
+    shareTitle: 'My very own €100 note',
+    pageTitle: 'Design your own €100 note',
+  },
+};
+
+let lang = localStorage.getItem('stoeurovka-lang') || 'cs';
+
+function applyLang(l) {
+  lang = l;
+  localStorage.setItem('stoeurovka-lang', l);
+  document.documentElement.lang = l;
+  document.title = I18N[l].pageTitle;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = I18N[l][el.dataset.i18n];
+  });
+  document.querySelectorAll('#langSwitch button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === l);
+  });
+  requestRender(); // kvůli textu SPECIMEN na bankovce
+}
+
 // ---- Stav aplikace ----
 const state = {
   source: { type: 'emoji', emoji: '🍺', img: null },
@@ -429,7 +483,7 @@ function drawOverlay() {
   ctx.fillStyle = 'rgba(30,50,30,0.5)';
   ctx.font = 'bold 19px Arial';
   ctx.textAlign = 'center';
-  ctx.fillText('SPECIMEN · JEN PRO LEGRACI · NENÍ ZÁKONNÉ PLATIDLO', 870, 936);
+  ctx.fillText(I18N[lang].specimen, 870, 936);
   ctx.textAlign = 'left';
 }
 
@@ -546,7 +600,7 @@ document.getElementById('share').addEventListener('click', () => {
     const file = new File([blob], 'moje-stoeurovka.png', { type: 'image/png' });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
-        await navigator.share({ files: [file], title: 'Moje vlastní stoeurovka' });
+        await navigator.share({ files: [file], title: I18N[lang].shareTitle });
       } catch (err) {
         if (err.name !== 'AbortError') console.error(err);
       }
@@ -557,5 +611,11 @@ document.getElementById('share').addEventListener('click', () => {
   }, 'image/png');
 });
 
-// první vykreslení
-render();
+// přepínač jazyka
+document.getElementById('langSwitch').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-lang]');
+  if (btn) applyLang(btn.dataset.lang);
+});
+
+// první vykreslení (applyLang zavolá i render)
+applyLang(lang);

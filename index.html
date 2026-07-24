@@ -15,25 +15,30 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💶</text></svg>">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
+<div class="lang-switch" id="langSwitch">
+  <button data-lang="cs" class="active">CZ</button>
+  <button data-lang="en">EN</button>
+</div>
+
 <header>
-  <h1>💶 Navrhni si vlastní stoeurovku</h1>
-  <p class="tagline">Nahraj fotku (nebo vyber emoji) a Evropská centrální banka to (třeba) vezme na vědomí!</p>
+  <h1 data-i18n="title">💶 Navrhni si vlastní stoeurovku</h1>
+  <p class="tagline" data-i18n="tagline">Nahraj fotku (nebo vyber emoji) a Evropská centrální banka to (třeba) vezme na vědomí!</p>
 </header>
 
 <main>
   <div class="note-wrap">
     <canvas id="note" width="1740" height="945"></canvas>
     <!-- Nápověda přes canvas – zmizí po nahrání fotky, do staženého PNG se nedostane -->
-    <div id="hint" class="hint" hidden>Sem přetáhni fotku</div>
+    <div id="hint" class="hint" data-i18n="hint" hidden>Sem přetáhni fotku</div>
   </div>
 
   <section class="controls">
     <div class="control-group">
-      <label class="upload-btn" for="file">📷 Nahrát fotku</label>
+      <label class="upload-btn" for="file" data-i18n="upload">📷 Nahrát fotku</label>
       <input type="file" id="file" accept="image/*" hidden>
       <div class="emoji-row" id="emojiRow">
         <button data-emoji="🍺">🍺</button>
@@ -50,35 +55,35 @@
     </div>
 
     <div class="control-group sliders">
-      <label>Přiblížení
+      <label><span data-i18n="zoom">Přiblížení</span>
         <input type="range" id="zoom" min="0.5" max="3" step="0.01" value="1">
       </label>
-      <p class="tip">Tip: fotku můžeš myší/prstem posouvat přímo na bankovce.</p>
+      <p class="tip" data-i18n="tip">Tip: fotku můžeš myší/prstem posouvat přímo na bankovce.</p>
     </div>
 
     <div class="control-group fields">
-      <label>Hodnota
+      <label><span data-i18n="denom">Hodnota</span>
         <input type="text" id="denom" value="100" maxlength="7">
       </label>
-      <label>Nápis
+      <label><span data-i18n="label">Nápis</span>
         <input type="text" id="label" value="EURO" maxlength="10">
       </label>
-      <label>Podpis
+      <label><span data-i18n="signature">Podpis</span>
         <input type="text" id="signature" value="Mario Draghi" maxlength="24">
       </label>
     </div>
 
     <div class="control-group actions">
-      <button id="download" class="primary">⬇️ Stáhnout bankovku</button>
-      <button id="share">📤 Sdílet</button>
+      <button id="download" class="primary" data-i18n="download">⬇️ Stáhnout bankovku</button>
+      <button id="share" data-i18n="share">📤 Sdílet</button>
     </div>
   </section>
 </main>
 
 <footer>
-  <p>Není zákonné platidlo. Je to legrace. Nekupujte za to rohlíky.</p>
+  <p data-i18n="footer">Není zákonné platidlo. Je to legrace. Nekupujte za to rohlíky.</p>
 </footer>
 
-<script src="script.js?v=2"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>
